@@ -1,0 +1,203 @@
+<!-- Rapider Official App SOW & Specification | App #178: Personal Budgeting & Money Planning (personal-budgeting-and-money-planning) | Domain: PRS -->
+
+# #178 Personal Budgeting & Money Planning (`personal-budgeting-and-money-planning`) — Scope of Work (SOW)
+
+- **App Number & Name:** `#178` — Personal Budgeting & Money Planning
+- **Proposed App Key:** `personal-budgeting-and-money-planning`
+- **Suite / Domain Key & Model Prefix:** `PER` (`Prs*` — `PrsFin*` family)
+- **Representative Product (`P1`):** YNAB (You Need A Budget)
+- **Combined Feature Catalog:** [../combined-features/178-personal-budgeting-and-money-planning-features.md](../combined-features/178-personal-budgeting-and-money-planning-features.md)
+- **Target Release Posture:** Owner-Isolated Zero-Based Envelope Budgeting, Safe-to-Spend Cash-Flow Runway, Credit Card & Loan Payoff Planner, Subscription Radar & Household Net Worth Microapplication
+
+---
+
+## 1. Executive Outcome & Target Audience
+
+### 1.1 Personal Financial Problem Solved
+Consumers and households struggle with passive backward-looking bank feeds that show overspending only *after* money is gone, confusing credit-card float cycles, surprise annual renewals ("true expenses"), and financial friction with partners—while never wanting employers or ad networks to mine their personal bank registers. **Rapider Personal Budgeting & Money Planning (`personal-budgeting-and-money-planning`)** delivers a **strictly owner-isolated (`ownerUserRef == authenticatedActor`)**, ad-free personal finance vault combining YNAB-grade zero-based cash envelope planning (`Ready to Assign`) with beginner-friendly **Safe-to-Spend** clarity, 90-day balance projections, debt snowball/avalanche amortization, and selective *Together* household sharing.
+
+### 1.2 Fast-Path Everyday Flow vs. Deep Zero-Based Envelope Mastery
+- **Fast-Path Everyday Flow (First-Time Budgeters, Busy Individuals):** Start in **Safe-to-Spend Mode** with starter category groups (*Bills*, *Everyday Needs*, *Fun*, *Savings*), import a bank CSV/QFX or connect a checking account, see an instant *"Safe to Spend After Upcoming Bills"* figure, and catch forgotten subscriptions in under 5 minutes.
+- **Progressive Zero-Based Mastery (YNAB Enthusiasts, Couples, Debt-Free Planners):** Switch seamlessly into full **Zero-Based Envelope Mode** (*Give Every Dollar a Job*), configure `SET_ASIDE_ANOTHER` vs. `REFILL_UP_TO` sinking-fund targets, automate funded Credit Card Payment envelopes, reconcile cleared vs. uncleared registers to the penny (`Decimal128`), model Debt Snowball vs. Avalanche extra payments, and co-manage a shared Household Plan while keeping personal accounts private.
+
+### 1.3 Measurable Outcomes
+- **100% Penny-Exact `Decimal128` Integrity:** Zero floating-point rounding drift across multi-year envelope rollovers, multi-way transaction splits, and credit-card payment transfers.
+- **30+ Day Age of Money Buffer Progression:** Clear sinking-fund ("True Expense") targets help households break the paycheck-to-paycheck cycle and eliminate credit-card float.
+- **Zero Employer / Corporate Finance Visibility:** Server-enforced owner ACLs block `100%` of unauthorized reads from workspace admins or corporate `FIN`/`HR` roles (`403 Forbidden`).
+
+### 1.4 Benchmark Summary (`P1`–`P6`)
+Synthesizes the zero-based envelope methodology, Targets, Credit Card Payment automation, Loan Planner, Age of Money, and *YNAB Together* sharing of **`P1` YNAB**, the Sankey cash-flow charts, partner review workflow, and Net Worth breadth of **`P2` Monarch Money**, the fast Review Inbox, merchant cleaning, and subscription hike radar of **`P3` Copilot Money**, the 30/90-day daily projected account balance runway and Watchlists of **`P4` Quicken Simplifi**, the single-number *Safe-to-Spend* clarity of **`P5` PocketGuard**, and the personal-to-reimbursable expense boundary of **`P6` Intuit Ecosystem**.
+
+---
+
+## 2. In-Scope, Out-of-Scope & Suite Ownership Boundaries
+
+### 2.1 In-Scope Capabilities
+1. Owner-isolated budget plans (`PrsFinPlan`) supporting both **Zero-Based Envelope Mode** (`Ready to Assign`) and **Safe-to-Spend Summary Mode** backed by penny-exact `Decimal128` accounting.
+2. Monthly category groups, envelopes (`PrsFinEnvelopeCategory`), monthly allocations (`PrsFinEnvelopeAllocation`), `SET_ASIDE_ANOTHER` / `REFILL_UP_TO` targets, Auto-Assign Underfunded, Move Money reallocations, and automatic Credit Card Payment envelope funding.
+3. On-Budget Cash/Credit registers and Tracking-Only Asset/Liability accounts (`PrsFinAccount`), split transactions (`PrsFinTransaction`), `PENDING` / `CLEARED` / `RECONCILED` states, CSV/OFX/QFX import, revocable bank-feed connectors (`PrsFinBankConnection`), and deterministic payee rules (`PrsFinPayeeRule`).
+4. Transaction Review Inbox (`<rapider-kanban>`), recurring bill/subscription calendar with price-hike alerts (`PrsFinRecurringBill`), and 30/90-day daily projected cash-flow balance runway.
+5. Interactive Debt Snowball / Avalanche & Loan Payoff simulator (`PrsFinGoalAndLoanPlan`), Age of Money calculation, Cash-Flow breakdown, and historical Net Worth tracking.
+6. Selective household partner sharing (`PrsFinHouseholdGrant`), single-transaction user-initiated reimbursement handoff to `expenses` (`ExpExpense`), full CSV/JSON export, and grounded review-before-apply AI spending insights.
+
+### 2.2 Out-of-Scope Capabilities (Delegated to Adjacent Rapider Apps)
+- **Corporate double-entry General Ledger, GAAP/IFRS chart of accounts, AP/AR, and FP&A:** Owned by `FIN` (`acc`, `accpayable`, `accreceivable`, `budgeting` — `FinAccount`, `FinJournalEntry`, `FinBudget`).
+- **Employer corporate card feeds and company expense approval workflows:** Owned by `expenses` (`ExpExpense`).
+- **Statutory tax return filing and corporate VAT/GST remittance:** Owned by `#021` Tax Compliance & Automation (`tax`).
+- **Live stock/crypto brokerage trade execution:** `#178` tracks portfolio balances/net worth read-only or manually; order execution is out of scope.
+
+### 2.3 Suite Ownership & Integration Contract Matrix
+
+| Domain / App | Owns | Integration Contract with `personal-budgeting-and-money-planning` |
+| :--- | :--- | :--- |
+| **`PER` (`personal-budgeting-and-money-planning`)** | `PrsFinPlan`, `PrsFinAccount`, `PrsFinEnvelopeCategory`, `PrsFinEnvelopeAllocation`, `PrsFinTransaction`, `PrsFinPayeeRule`, `PrsFinRecurringBill`, `PrsFinGoalAndLoanPlan`, `PrsFinBankConnection`, `PrsFinHouseholdGrant` | Exclusive source of truth for personal/household budgets, bank registers, envelopes, debt plans, and net worth under `ownerUserRef`. |
+| **`HR` / `FIN` (`expenses`)** | `ExpExpense` | **Explicit User-Initiated Single-Item Push Only:** When the user clicks *Send Receipt to Work Expenses* on one specific transaction, `#178` creates a draft `ExpExpense` for `authenticatedActor` with amount, date, merchant, and receipt ref; `expenses` NEVER receives read access to `PrsFin*`. |
+| **`PER` (`personal-task-and-to-do-management`, `#177`)** | `PrsTaskItem` | Optional owner-local command creating a private bill-payment or subscription-cancel to-do item in `#177`. |
+| **Platform Home `WorkItem`s** | Actionable user notifications | Delivers `PrsFinHouseholdGrant` partner invitations and bank-feed OAuth re-consent alerts. |
+| **Platform Files & Channels** | Malware-scanned encrypted blobs & ACL-scoped `projectChannelMessage` | Stores receipt images, CSV/OFX/QFX imports, and export archives; hosts partner transaction notes and owner-private AI Cash-Flow Q&A threads. |
+
+---
+
+## 3. Primary Web Pages & Sidebar Navigation Architecture (13 Pages)
+
+Every visible sidebar section strictly enforces the **Minimum 3 Visible Items Rule (`>= 3`)** (`Overview`: 3 items, `Accounts & Cash Flow`: 3 items, `Wealth & Governance`: 3 items = 9 visible items; 4 detail/drawer views hidden from sidebar).
+
+| # | Route | Page Title | Sidebar Section | Menu Visible | Key Components & UX |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | `budget-plan` | **Monthly Envelope Plan** | `Overview` | `true` (Order 1) | Sticky **Ready to Assign** (`\$0.00` target) & **Safe-to-Spend** header, month switcher, collapsible Category Groups, inline `Assigned` / `Activity` / `Available` (`Decimal128`) columns, Target progress bars, *Auto-Assign Underfunded*, and *Move Money* popover. |
+| 2 | `transaction-review` | **Review Inbox & Splits** | `Overview` | `true` (Order 2) | `<rapider-kanban>` triage board (`NEEDS_REVIEW` -> `CATEGORIZED` -> `AWAITING_REFUND` -> `CLEARED_VERIFIED`) + bulk approval bar, `#activeFilterTagsBar` with `[Clear all]`, and overspend coverage badges. |
+| 3 | `cashflow-runway` | **Bills & Cash-Flow Runway** | `Overview` | `true` (Order 3) | Upcoming 30/90-day daily checking balance projection chart, recurring bill & subscription calendar (`PrsFinRecurringBill`), subscription price-hike alert banner, and low-balance warning chips. |
+| 4 | `accounts-ledger` | **Accounts & Registers** | `Accounts & Cash Flow` | `true` (Order 1) | Grouped `ON_BUDGET` (Checking, Savings, Credit Cards) and `TRACKING_ONLY` (Loans, Investments) account summary + master `findSWR` transaction table, `#activeFilterTagsBar`, clickable Payee -> `transaction-detail`, icon+text `Edit`, icon-only `Delete`, and **Reconcile Account** wizard. |
+| 5 | `payee-rules` | **Payees & Smart Rules** | `Accounts & Cash Flow` | `true` (Order 2) | Normalized merchant directory and deterministic auto-categorization/split rules (`PrsFinPayeeRule`) with `#activeFilterTagsBar`, test-rule preview, icon+text `Edit`, and icon-only `Delete`. |
+| 6 | `bank-imports` | **Connections & File Import** | `Accounts & Cash Flow` | `true` (Order 3) | Revocable read-only bank connection cards (`PrsFinBankConnection`), last-sync cursor health, and drag-and-drop CSV / OFX / QFX statement importer with duplicate preview. |
+| 7 | `debt-and-goals` | **Goals & Loan Payoff Planner** | `Wealth & Governance` | `true` (Order 1) | Sinking-fund milestones + interactive Debt Snowball vs. Debt Avalanche simulator (`PrsFinGoalAndLoanPlan`) showing exact payoff date, months shaved, and `Decimal128` interest saved as extra monthly payment sliders change. |
+| 8 | `net-worth-insights` | **Net Worth & Age of Money** | `Wealth & Governance` | `true` (Order 2) | Assets vs. Liabilities Net Worth curve, Age of Money buffer trend, Income-to-Category spending breakdown, and custom category Watchlists across light/dark modes. |
+| 9 | `household-privacy` | **Household, Export & Privacy** | `Wealth & Governance` | `true` (Order 3) | *Together* partner access grants (`PrsFinHouseholdGrant`), per-account `PRIVATE_OWNER_ONLY` vs. `SHARED_HOUSEHOLD` visibility toggles, full CSV/JSON export, and cascade vault erasure. |
+| 10 | `account-detail` | **Single Account Register** | *(Hidden)* | `false` | Dedicated register (`#/account-detail?id=...`) showing cleared balance, uncleared total, working balance, Credit Card Payment coverage badge, statement reconciliation lock, and `Back to list` state restoration. |
+| 11 | `transaction-detail` | **Transaction & Split Detail** | *(Hidden)* | `false` | Full transaction inspector (`#/transaction-detail?id=...`) with multi-envelope split lines, Platform File receipt preview, partner `projectChannelMessage` thread, and single-click *Send Receipt to Work Expenses* action. |
+| 12 | `new-transaction-drawer` | **Log / Edit Transaction Drawer** | *(Hidden)* | `false` | Sliding drawer supporting inflow/outflow/transfer entry, multi-line `Decimal128` split validation (`sum(splits) == totalAmount`), and optional AI Receipt OCR prefill; auto-closes via `closePageDrawer()` with `finally` button reset. |
+| 13 | `household-share-drawer` | **Invite Household Partner Drawer** | *(Hidden)* | `false` | Sliding drawer to invite a partner to a shared `PrsFinPlan` (with E.164 lookup via `<rapider-phone-input>` or user email) and select which accounts join the shared plan vs. remain private. |
+
+---
+
+## 4. Canonical Data Models (`PrsFin*` — 9 Models)
+
+All models omit `projectId`, enforce server-resolved `ownerUserRef` / `PrsFinHouseholdGrant` ACLs, use platform UUIDs (`00000000-xxxx-xxxx-xxxx-xxxxxxxxxxxx` in sample seeds), store **all** monetary figures and rates as `Decimal128`, and track optimistic `version`.
+
+| Model Name | Key Fields & Types | Relationships & External Refs | Invariants & Lifecycle |
+| :--- | :--- | :--- | :--- |
+| **`PrsFinPlan`** | `id` (UUID), `ownerUserRef` (UUID), `name` (String), `primaryCurrency` (ISO-4217 String, e.g., `USD`), `planMode` (`ZERO_BASED_ENVELOPE` \| `SAFE_TO_SPEND`), `visibilityScope` (`PRIVATE_OWNER_ONLY` \| `SHARED_HOUSEHOLD`), `ageOfMoneyDays` (Int?), `version` (Int) | Has many `PrsFinAccount`, `PrsFinEnvelopeCategory`, `PrsFinHouseholdGrant` | An owner may maintain multiple plans (e.g., *Household Shared Plan* + *Personal Discretionary Plan*); workspace admins have zero access. |
+| **`PrsFinAccount`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `name` (String), `accountType` (`CHECKING` \| `SAVINGS` \| `CASH` \| `CREDIT_CARD` \| `MORTGAGE` \| `LOAN` \| `INVESTMENT` \| `ASSET`), `budgetTreatment` (`ON_BUDGET` \| `TRACKING_ONLY`), `currency` (ISO-4217 String), `clearedBalance` (`Decimal128`), `unclearedBalance` (`Decimal128`), `workingBalance` (`Decimal128`), `linkedPaymentEnvelopeId` (UUID?), `lastReconciledAt` (DateTime?), `isClosed` (Boolean), `version` (Int) | Belongs to `PrsFinPlan`; optional `bankConnectionId` -> `PrsFinBankConnection` | `workingBalance == clearedBalance + unclearedBalance` (`Decimal128`); every `ON_BUDGET` `CREDIT_CARD` auto-provisions a paired `linkedPaymentEnvelopeId`. |
+| **`PrsFinEnvelopeCategory`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `groupName` (String), `name` (String), `isCreditCardPayment` (Boolean), `rolloverPositive` (Boolean), `targetType` (`NONE` \| `REFILL_UP_TO` \| `SET_ASIDE_ANOTHER` \| `BY_DATE_BALANCE`), `targetAmount` (`Decimal128`?), `targetCadence` (`WEEKLY` \| `MONTHLY` \| `ANNUAL` \| `CUSTOM_DATE`?), `targetDueDate` (LocalDate?), `sortOrder` (Int), `isArchived` (Boolean), `version` (Int) | Belongs to `PrsFinPlan`; has monthly `PrsFinEnvelopeAllocation`s | Archiving hides from future months while keeping historical monthly `PrsFinEnvelopeAllocation` math intact. |
+| **`PrsFinEnvelopeAllocation`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `categoryId` (UUID), `budgetMonth` (String `YYYY-MM`), `carryoverFromPrev` (`Decimal128`), `assignedAmount` (`Decimal128`), `activityAmount` (`Decimal128`), `availableAmount` (`Decimal128`), `version` (Int) | Unique `(planId, categoryId, budgetMonth)` | Exact invariant: `availableAmount == carryoverFromPrev + assignedAmount + activityAmount`; Plan-level `ReadyToAssign == TotalOnBudgetCashInflows - Sum(assignedAmount)`. |
+| **`PrsFinTransaction`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `accountId` (UUID), `transferCounterpartyAccountId` (UUID?), `txnDate` (LocalDate), `payeeName` (String), `rawBankDescription` (String?), `totalAmount` (`Decimal128`, signed), `nativeAmount` (`Decimal128`?), `fxRateSnapshot` (`Decimal128`?), `categoryId` (UUID?), `splitLines` (Embedded `{splitId, categoryId, memo, amount: Decimal128}`[]), `clearStatus` (`PENDING` \| `CLEARED` \| `RECONCILED`), `reviewStage` (`NEEDS_REVIEW` \| `CATEGORIZED` \| `AWAITING_REFUND` \| `CLEARED_VERIFIED`), `importDedupKey` (String?), `memo` (String?), `version` (Int) | Belongs to `PrsFinAccount`; optional `receiptFileRef` (Platform Files), `exportedWorkExpenseId` (`ExpExpense` UUID?), `channelThreadRef` | If `splitLines` non-empty, `sum(splitLines.amount) == totalAmount`; `RECONCILED` rows lock `totalAmount` and `accountId` against accidental silent edits; transfers between two `ON_BUDGET` accounts require no category (`ReadyToAssign` neutral). |
+| **`PrsFinPayeeRule`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `matchPattern` (String), `matchMode` (`CONTAINS` \| `STARTS_WITH` \| `EXACT`), `normalizedPayee` (String), `defaultCategoryId` (UUID?), `autoMarkReviewed` (Boolean), `priorityOrder` (Int), `version` (Int) | Belongs to `PrsFinPlan` | Deterministic first-match priority order; never mutates already `RECONCILED` historical transactions without explicit batch confirmation. |
+| **`PrsFinRecurringBill`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `accountId` (UUID), `payeeName` (String), `direction` (`INFLOW` \| `OUTFLOW`), `expectedAmount` (`Decimal128`), `previousAmount` (`Decimal128`?), `cadence` (`WEEKLY` \| `BIWEEKLY` \| `MONTHLY` \| `QUARTERLY` \| `ANNUAL`), `nextDueDate` (LocalDate), `isSubscription` (Boolean), `priceHikeDetected` (Boolean), `version` (Int) | Feeds 30/90-day cash-flow runway & envelope underfunded cues | Sets `priceHikeDetected = true` when matched cleared outflow exceeds `expectedAmount` beyond tolerance. |
+| **`PrsFinGoalAndLoanPlan`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `linkedAccountId` (UUID?), `linkedCategoryId` (UUID?), `planType` (`SAVINGS_GOAL` \| `LOAN_AMORTIZATION`), `principalBalance` (`Decimal128`), `aprPercent` (`Decimal128`, e.g., `6.875`), `minimumMonthlyPayment` (`Decimal128`), `extraMonthlyPayment` (`Decimal128`), `strategy` (`SNOWBALL` \| `AVALANCHE` \| `CUSTOM`), `projectedPayoffDate` (LocalDate?), `version` (Int) | Links `TRACKING_ONLY` loan `PrsFinAccount` with `ON_BUDGET` debt envelope | Exact `Decimal128` monthly compounding amortization math; zero impact on real balances until actual payments post. |
+| **`PrsFinBankConnection` & `PrsFinHouseholdGrant`** | `id` (UUID), `ownerUserRef` (UUID), `planId` (UUID), `providerName` / `granteeUserRef`, `status` (`ACTIVE` \| `REAUTH_REQUIRED` \| `REVOKED`), `lastCursor` (String?), `granteePhoneE164` (String?), `accessRole` (`PARTNER_CO_OWNER` \| `VIEWER`), `version` (Int) | Managed on `bank-imports` and `household-privacy`; invites via Home `WorkItem` | OAuth provider tokens live strictly in server secret vault (never exposed to client JS); revoking either record takes effect immediately. |
+
+---
+
+## 5. Core End-to-End User Journeys
+
+### 5.1 Paycheck Inflow, Zero-Based Envelope Funding & "Move Money" Coverage (`budget-plan`)
+1. The user logs or imports a `\$3,200.00` paycheck inflow (`Inflow: Ready to Assign`) into their Checking account. On `#/budget-plan`, **Ready to Assign** updates immediately to `\$3,200.00`.
+2. Clicking **Auto-Assign Underfunded** previews deterministic funding prioritized by upcoming `targetDueDate` (*Rent* `\$1,650.00`, *Groceries* `REFILL_UP_TO` `\$600.00`, *Annual Car Insurance* `SET_ASIDE_ANOTHER` `\$125.00`, etc.) until **Ready to Assign** reaches `\$0.00`.
+3. Mid-month, a `\$72.50` restaurant dinner causes *Dining Out* to show `- \$22.50` overspent. Clicking the red `- \$22.50` pill opens **Move Money**, moving `\$22.50` from *Entertainment* (`\$100.00` -> `\$77.50`) to *Dining Out* (`\$0.00`), keeping `Ready to Assign` at `\$0.00`.
+
+### 5.2 Budgeted Credit Card Purchase & Payment Envelope Automation (`new-transaction-drawer` -> `account-detail`)
+1. Using `new-transaction-drawer`, the user logs an `\$85.40` outflow on *Chase Sapphire (Credit Card)* split across *Groceries* (`\$65.40`) and *Household Supplies* (`\$20.00`). Saving resets the button in `finally` and auto-closes the drawer via `closePageDrawer()`.
+2. Because both envelopes had sufficient cash `Available`, `#178` deducts `\$65.40` and `\$20.00` from those envelopes and **automatically increments** the *Chase Sapphire Payment* envelope's `Available` balance by `+ \$85.40` (`PBM-006`).
+3. Clicking *Chase Sapphire* on `#/accounts-ledger` navigates to `#/account-detail?id=...`, confirming the card's `- \$85.40` balance is `100%` backed by `\$85.40` cash set aside for payoff. Clicking `Back to list` restores `#/accounts-ledger` filters cleanly.
+
+### 5.3 CSV/Bank Feed Triage, Subscription Hike Alert & Account Reconciliation (`bank-imports` -> `transaction-review` -> `cashflow-runway`)
+1. Uploading `checking-october.qfx` on `#/bank-imports` deduplicates 14 already-logged entries via `importDedupKey` and routes 6 new entries to `#/transaction-review` (`<rapider-kanban>` `NEEDS_REVIEW` column).
+2. `PrsFinPayeeRule` normalizes `"NFLX.COM 8821"` to `"Netflix"` under *Subscriptions*, while flagging `priceHikeDetected = true` (`\$15.49` -> `\$17.99`) on `#/cashflow-runway`, where the 30-day projected checking runway updates immediately.
+3. On `#/account-detail`, clicking **Reconcile** against statement balance `\$4,112.38` locks all `CLEARED` rows to `RECONCILED`.
+
+### 5.4 Debt Snowball vs. Avalanche Simulation (`debt-and-goals`)
+1. On `#/debt-and-goals`, the user inspects two loans (*Auto Loan* `\$8,400.00 @ 5.90% APR` and *Visa Balance* `\$3,100.00 @ 21.99% APR`) and drags the extra monthly payment slider to `+ \$250.00/mo`.
+2. Toggling `AVALANCHE` vs. `SNOWBALL` computes exact `Decimal128` interest schedules, showing `AVALANCHE` saves `\$642.18` in total interest and finishes `9 months` early; clicking **Link Target to Budget** updates the monthly debt envelope target.
+
+### 5.5 Selective *Together* Partner Sharing & Single Work-Expense Handoff (`household-privacy` & `transaction-detail`)
+1. Via `household-share-drawer`, the owner invites their spouse to *Our Household Budget* (`SHARED_HOUSEHOLD`), dispatching a Home `WorkItem`, while keeping their *Personal Hobby Plan* set to `PRIVATE_OWNER_ONLY` (`403` to spouse).
+2. Later, on `#/transaction-detail?id=...` for a `\$148.00` client taxi paid on a personal card, the user clicks **Send Single Receipt to Work Expenses**—creating one draft `ExpExpense` in `expenses` with the taxi receipt while exposing zero other `PrsFin*` records to corporate `FIN`/`HR`.
+
+---
+
+## 6. Consolidated Feature Priorities & Work Packages (`P0`, `P1`, `P2`)
+
+### `P0` Foundation Work Packages
+- **WP-P0-1 — Owner-Isolated Vault & Exact `Decimal128` Zero-Based Envelope Engine (`PBM-001`–`PBM-006`):** Implement `ownerUserRef` server guard (`403` to workspace/`FIN` admins), `PrsFinPlan` (`ZERO_BASED_ENVELOPE` & `SAFE_TO_SPEND`), `PrsFinEnvelopeCategory`, `PrsFinEnvelopeAllocation`, `SET_ASIDE_ANOTHER` / `REFILL_UP_TO` targets, Move Money, Credit Card Payment envelope automation, and `budget-plan`.
+- **WP-P0-2 — Registers, Splits, Review Kanban & Statement Import (`PBM-007`–`PBM-010`, `PBM-020`):** Deliver `ON_BUDGET` vs. `TRACKING_ONLY` `PrsFinAccount`s, `PrsFinTransaction` split validation, reconciliation locking, `<rapider-kanban>` `transaction-review`, CSV/OFX/QFX deduplicated import, revocable `PrsFinBankConnection`, full CSV/JSON export, and cascade erasure.
+- **WP-P0-3 — Recurring Bills & Subscription Hike Radar (`PBM-013`):** Deliver `PrsFinRecurringBill` calendar, renewal alerts, and subscription price-increase detection on `cashflow-runway`.
+
+### `P1` Household Scale, Forecasting & Wealth Work Packages
+- **WP-P1-1 — Payee Rules, Multi-Currency, 90-Day Runway & Refunds (`PBM-011`, `PBM-012`, `PBM-014`, `PBM-017`):** Build `PrsFinPayeeRule` normalization, snapshot FX multi-currency support, 30/90-day daily balance projection with overdraft warnings, and `AWAITING_REFUND` envelope netting.
+- **WP-P1-2 — Debt Amortization, Net Worth, Age of Money & Selective Sharing (`PBM-015`, `PBM-016`, `PBM-018`, `PBM-019`):** Build Snowball/Avalanche `PrsFinGoalAndLoanPlan` (`debt-and-goals`), Age of Money + Net Worth (`net-worth-insights`), `PrsFinHouseholdGrant` via Home `WorkItem`s (`household-share-drawer`), and one-way single-receipt `ExpExpense` handoff.
+
+### `P2` Adjacent & Grounded AI Work Packages
+- **WP-P2-1 — Consent-Scoped Financial AI, Receipt OCR & Bill Tasks (`PBM-021`–`PBM-025`):** Deliver grounded `Decimal128`-cited Cash-Flow Q&A in private `projectChannelMessage` threads, review-before-apply overspend rebalance proposals, Receipt OCR prefill, subscription-creep anomaly detection, and `#177` bill-task linking.
+
+---
+
+## 7. Roles, Permissions & Field-Level Governance
+
+| Role | Permitted Actions | Restricted / Field-Level Boundaries |
+| :--- | :--- | :--- |
+| **Personal Plan Owner** | Full CRUD on own `PrsFin*` plans, envelopes, accounts, transactions, bank OAuth consents, partner grants, single-item `ExpExpense` handoffs, exports, and vault erasure. | Cannot mutate historical `RECONCILED` transaction amounts without explicit unlock audit entry. |
+| **Household Partner (`PARTNER_CO_OWNER`)** | Full envelope allocation, transaction logging/review, and reconciliation strictly within the explicitly shared `PrsFinPlan` (`visibilityScope == SHARED_HOUSEHOLD`) while `status == ACTIVE`. | **Zero access (`403`)** to any `PRIVATE_OWNER_ONLY` `PrsFinPlan`, private accounts, or the owner's `ExpExpense` work claims; cannot delete the plan or revoke the primary owner. |
+| **Household Viewer (`VIEWER`)** | Read-only access to the shared `PrsFinPlan` budget and registers while `status == ACTIVE`. | Cannot move envelope money, edit/delete transactions, or link bank connections. |
+| **Workspace / Employer / Corporate `FIN` Admin** | Manage workspace app availability and view redacted system connector health metrics only. | **STRICTLY BLOCKED (`403 Forbidden`)** from reading, querying, aggregating, or exporting any user's `PrsFin*` plans, balances, payees, debts, or net worth (`PBM-001`). |
+
+---
+
+## 8. Technical APIs, Guarded Commands, Events & `requiredWorkflows`
+
+### 8.1 Guarded Domain Commands
+Every command resolves `ownerUserRef` from authenticated JWT claims and requires `idempotencyKey`, `correlationId`, and `expectedVersion`:
+- `per.fin.assignOrMoveEnvelopeMoney` — Atomically adjusts `PrsFinEnvelopeAllocation.assignedAmount` (`Decimal128`) and verifies `ReadyToAssign` accounting invariance.
+- `per.fin.recordOrUpdateTransaction` — Validates `sum(splitLines.amount) == totalAmount` (`Decimal128`), updates `PrsFinAccount` balances, recomputes `PrsFinEnvelopeAllocation.activityAmount`, and executes Credit Card Payment envelope transfer (`PBM-006`).
+- `per.fin.reconcileAccountStatement` — Compares `clearedBalance` to user's statement balance, optionally creates an explicit reconciliation adjustment transaction, and locks `CLEARED` rows to `RECONCILED`.
+- `per.fin.pushSingleReceiptToWorkExpense` — User-confirmed one-way command creating one `ExpExpense` in `expenses` for a single `PrsFinTransaction` and recording `exportedWorkExpenseId`.
+- `per.fin.grantOrRevokeHouseholdShare` — Creates `PrsFinHouseholdGrant` + partner Home `WorkItem` or immediately revokes partner access.
+- `per.fin.exportOrErasePersonalFinanceVault` — Produces encrypted CSV/JSON archives in private Platform Files or executes cascade erasure + OAuth bank token revocation.
+
+### 8.2 Domain Events Published & Consumed (Kafka)
+- **Published:** `per.fin.transaction.recorded.v1`, `per.fin.account.reconciled.v1`, `per.fin.subscription.hikeDetected.v1`, `per.fin.household.grantChanged.v1`, `per.fin.vault.erased.v1` (opaque IDs only; zero dollar amounts or merchant PII in shared logs).
+- **Consumed:** `platform.file.malware_scan_completed.v1` (unlocks uploaded CSV/OFX/QFX statements and receipt images).
+
+### 8.3 `requiredWorkflows` (Declared in `app.manifest.json`)
+1. `personalBankSyncAndStatementImportWorkflow` — Polls active consented read-only bank cursors or parses CSV/OFX/QFX files, deduplicates via `importDedupKey`, applies `PrsFinPayeeRule`s, and populates `NEEDS_REVIEW`.
+2. `personalEnvelopeRolloverAndAgeOfMoneyWorkflow` — Computes monthly `carryoverFromPrev`, Age of Money FIFO buffer days, and 30/90-day cash-flow balance projections.
+3. `personalReceiptOcrAndAiRebalanceWorkflow` — Extracts receipt split candidates and stages review-before-apply envelope rebalance proposals.
+4. `personalFinanceRevocationAndErasureWorkflow` — Immediately revokes upstream open-banking OAuth tokens and executes cryptographic cascade erasure across `PrsFin*`.
+
+### 8.4 Grounded Rapider AI Rules
+- AI Cash-Flow Q&A (`PBM-022`) and Rebalance Proposals (`PBM-023`) **never compute totals via LLM token arithmetic**—all sums, variances, and APR projections are computed deterministically over `Decimal128` fields and passed as grounded facts with clickable `PrsFinTransaction` citations.
+- AI NEVER executes money moves, recategorizations, or `ExpExpense` submissions without explicit human review and confirmation, and NEVER offers regulated investment, tax, or credit-underwriting advice.
+
+---
+
+## 9. Security, Privacy, Compliance & Non-Functional Requirements
+
+- **Zero-Ad, Zero-Monetization Financial Privacy (GLBA / GDPR / CCPA):** Personal financial records are never mined for financial-product ads, credit lead generation, or employer surveillance. All sensitive payee descriptions and account masks are encrypted at rest; raw bank account numbers and OAuth credentials are never stored in `PrsFinAccount` or returned to the browser.
+- **Exact Monetary Precision (`Decimal128`):** Every balance, envelope allocation (e.g., `\$0.01` rounding edge cases on a `\$100.00` 3-way split -> `\$33.34 + \$33.33 + \$33.33`), loan APR (`6.875%`), and FX snapshot uses `Decimal128` exclusively.
+- **Accessibility & Responsive Design:** Full WCAG 2.2 AA compliance (overspent/underfunded states pair color with explicit icons/text badges—never red/green color alone; `#ffffff !important` button contrast in light and dark modes; ARIA labels on icon-only Delete buttons) across `390px` mobile, `768px` tablet, and `1440px` desktop viewports.
+
+---
+
+## 10. Deterministic Acceptance Criteria
+
+1. **Owner-Only Privacy Enforcement (`403 Forbidden`):** Queries by a Workspace Administrator or Corporate `FIN` Administrator against `PrsFinPlan`, `PrsFinAccount`, or `PrsFinTransaction` belonging to another user deterministically return `403 Forbidden` / `0` records.
+2. **Sidebar 3-Item Section Rule:** `app.manifest.json` defines 3 visible sidebar sections (`Overview`, `Accounts & Cash Flow`, `Wealth & Governance`), each containing 3 visible menu items (`displayOnMenu: true`), and hides all 4 detail/drawer pages (`displayOnMenu: false`).
+3. **SWR & Clean Query Compliance:** Initial loads across all pages use `findSWR` / `countSWR` with zero redundant `isDeleted` filter clauses in API payloads and filter `item.isDeleted !== true` in memory.
+4. **Zero-Based `Decimal128` Accounting Invariant:** Assigning `\$1,250.55` across envelopes reduces `Ready to Assign` by exactly `\$1,250.55`, and moving `\$45.20` via *Move Money* leaves `Ready to Assign` unchanged to `0.00` decimal error.
+5. **Credit Card Payment Envelope Automation:** Logging a budgeted `\$64.25` *Groceries* purchase on an `ON_BUDGET` Credit Card deducts `\$64.25` from *Groceries Available* and increases the paired *Credit Card Payment Available* envelope by `+ \$64.25` atomically.
+6. **Split Sum & Reconciliation Lock Guards:** `new-transaction-drawer` blocks save if `sum(splitLines.amount) != totalAmount`, resets button state in `finally`, and invokes `closePageDrawer()`; attempting to silently mutate `totalAmount` on a `RECONCILED` transaction is rejected unless explicitly unlocked.
+7. **Active Filter Tags & Synchronized Views:** Entering a search query or status/category filter on `accounts-ledger` or `transaction-review` renders HTML-escaped chips in `#activeFilterTagsBar` with `[Clear all]`, synchronously filtering table rows and `<rapider-kanban>` cards.
+8. **Table Action Standard & Custom Elements:** Data tables contain zero standalone "View" buttons in `Actions`; Payee/Account links open detail pages, `Edit` renders icon + text, `Delete` renders icon-only (`title="Delete" aria-label="Delete"`) confirmed via `#rapiderConfirmOkBtn` (zero `alert`/`confirm`/`prompt`), `transaction-review` uses `<rapider-kanban>`, and `household-share-drawer` uses `<rapider-phone-input>`.
+9. **Deduplicated Statement Import:** Importing the same OFX/QFX/CSV file twice skips 100% of previously imported `importDedupKey` transactions without creating duplicate ledger rows.
+10. **Snowball vs. Avalanche Amortization Accuracy:** `debt-and-goals` computes deterministic `Decimal128` payoff months and interest saved for `SNOWBALL` vs. `AVALANCHE` strategies matching standard monthly actuarial schedules.
+11. **Scoped Household Isolation & Work-Expense Boundary:** A spouse granted access to *Household Shared Plan* receives `403 Forbidden` when querying the owner's `PRIVATE_OWNER_ONLY` plan, and pushing one reimbursable taxi receipt to `ExpExpense` exposes zero other `PrsFinTransaction`s to `expenses`.
+12. **Click-Through Navigation & Theme Contrast:** Clicking an account or transaction row transitions to `#/account-detail?id=...` or `#/transaction-detail?id=...` without `<base href>` 404 diversion, `Back to list` restores active filter chips, zero schemas contain `projectId`, and all 13 pages pass `validate_theme` in light and dark modes with `#ffffff !important` button text.
