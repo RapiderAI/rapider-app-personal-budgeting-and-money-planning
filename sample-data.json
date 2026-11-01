@@ -1,0 +1,472 @@
+{
+  "FinBudget": [
+    {
+      "id": "00000000-0178-0001-0000-000000000001",
+      "scenarioId": "00000000-0178-0001-0000-000000000001",
+      "entityId": "00000000-0178-0001-0000-000000000001",
+      "fiscalYear": "Budget fiscalYear configuration (1)",
+      "totalAmount": 1250,
+      "isDeleted": false,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "00000000-0178-0001-0000-000000000002",
+      "scenarioId": "00000000-0178-0001-0000-000000000002",
+      "entityId": "00000000-0178-0001-0000-000000000002",
+      "fiscalYear": "Budget fiscalYear configuration (2)",
+      "totalAmount": 2500,
+      "isDeleted": false,
+      "status": "IN_PROGRESS"
+    },
+    {
+      "id": "00000000-0178-0001-0000-000000000003",
+      "scenarioId": "00000000-0178-0001-0000-000000000003",
+      "entityId": "00000000-0178-0001-0000-000000000003",
+      "fiscalYear": "Budget fiscalYear configuration (3)",
+      "totalAmount": 3750,
+      "isDeleted": false,
+      "status": "COMPLETED"
+    }
+  ],
+  "FinJournalEntry": [
+    {
+      "id": "00000000-0178-0002-0000-000000000001",
+      "ledgerId": "00000000-0178-0001-0000-000000000001",
+      "entryDate": "2026-11-01T10:00:00Z",
+      "description": "Journal Entry description configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0002-0000-000000000002",
+      "ledgerId": "00000000-0178-0001-0000-000000000002",
+      "entryDate": "2026-11-02T10:00:00Z",
+      "description": "Journal Entry description configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0002-0000-000000000003",
+      "ledgerId": "00000000-0178-0001-0000-000000000003",
+      "entryDate": "2026-11-03T10:00:00Z",
+      "description": "Journal Entry description configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsTaskItem": [
+    {
+      "id": "00000000-0178-0003-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Task Item ownerUserRef configuration (1)",
+      "listId": "00000000-0178-0001-0000-000000000001",
+      "sectionId": "00000000-0178-0001-0000-000000000001",
+      "parentTaskId": "00000000-0178-0001-0000-000000000001",
+      "title": "Task Item #1 — Enterprise Primary Record",
+      "notesMarkdown": "Task Item notesMarkdown configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0003-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Task Item ownerUserRef configuration (2)",
+      "listId": "00000000-0178-0001-0000-000000000002",
+      "sectionId": "00000000-0178-0001-0000-000000000002",
+      "parentTaskId": "00000000-0178-0001-0000-000000000002",
+      "title": "Task Item #2 — Enterprise Operations Record",
+      "notesMarkdown": "Task Item notesMarkdown configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0003-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Task Item ownerUserRef configuration (3)",
+      "listId": "00000000-0178-0001-0000-000000000003",
+      "sectionId": "00000000-0178-0001-0000-000000000003",
+      "parentTaskId": "00000000-0178-0001-0000-000000000003",
+      "title": "Task Item #3 — Enterprise Compliance Record",
+      "notesMarkdown": "Task Item notesMarkdown configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinPlan": [
+    {
+      "id": "00000000-0178-0004-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Plan ownerUserRef configuration (1)",
+      "name": "Fin Plan #1 — Enterprise Primary Record",
+      "primaryCurrency": "USD",
+      "planMode": "Fin Plan planMode configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0004-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Plan ownerUserRef configuration (2)",
+      "name": "Fin Plan #2 — Enterprise Operations Record",
+      "primaryCurrency": "USD",
+      "planMode": "Fin Plan planMode configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0004-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Plan ownerUserRef configuration (3)",
+      "name": "Fin Plan #3 — Enterprise Compliance Record",
+      "primaryCurrency": "USD",
+      "planMode": "Fin Plan planMode configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinAccount": [
+    {
+      "id": "00000000-0178-0005-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Account ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "name": "Fin Account #1 — Enterprise Primary Record",
+      "accountType": "Fin Account accountType configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0005-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Account ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "name": "Fin Account #2 — Enterprise Operations Record",
+      "accountType": "Fin Account accountType configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0005-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Account ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "name": "Fin Account #3 — Enterprise Compliance Record",
+      "accountType": "Fin Account accountType configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinEnvelopeCategory": [
+    {
+      "id": "00000000-0178-0006-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Envelope Category ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "groupName": "Fin Envelope Category #1 — Enterprise Primary Record",
+      "name": "Fin Envelope Category #1 — Enterprise Primary Record",
+      "isCreditCardPayment": true,
+      "rolloverPositive": true,
+      "targetType": "Fin Envelope Category targetType configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0006-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Envelope Category ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "groupName": "Fin Envelope Category #2 — Enterprise Operations Record",
+      "name": "Fin Envelope Category #2 — Enterprise Operations Record",
+      "isCreditCardPayment": true,
+      "rolloverPositive": true,
+      "targetType": "Fin Envelope Category targetType configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0006-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Envelope Category ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "groupName": "Fin Envelope Category #3 — Enterprise Compliance Record",
+      "name": "Fin Envelope Category #3 — Enterprise Compliance Record",
+      "isCreditCardPayment": false,
+      "rolloverPositive": false,
+      "targetType": "Fin Envelope Category targetType configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinEnvelopeAllocation": [
+    {
+      "id": "00000000-0178-0007-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Envelope Allocation ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "categoryId": "00000000-0178-0001-0000-000000000001",
+      "budgetMonth": "Fin Envelope Allocation budgetMonth configuration (1)",
+      "carryoverFromPrev": 10,
+      "assignedAmount": 1250,
+      "activityAmount": 1250,
+      "availableAmount": 1250,
+      "version": 1,
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0007-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Envelope Allocation ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "categoryId": "00000000-0178-0001-0000-000000000002",
+      "budgetMonth": "Fin Envelope Allocation budgetMonth configuration (2)",
+      "carryoverFromPrev": 20,
+      "assignedAmount": 2500,
+      "activityAmount": 2500,
+      "availableAmount": 2500,
+      "version": 2,
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0007-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Envelope Allocation ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "categoryId": "00000000-0178-0001-0000-000000000003",
+      "budgetMonth": "Fin Envelope Allocation budgetMonth configuration (3)",
+      "carryoverFromPrev": 30,
+      "assignedAmount": 3750,
+      "activityAmount": 3750,
+      "availableAmount": 3750,
+      "version": 3,
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinTransaction": [
+    {
+      "id": "00000000-0178-0008-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Transaction ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "accountId": "00000000-0178-0001-0000-000000000001",
+      "transferCounterpartyAccountId": "00000000-0178-0001-0000-000000000001",
+      "txnDate": "2026-11-01T10:00:00Z",
+      "payeeName": "Fin Transaction #1 — Enterprise Primary Record",
+      "rawBankDescription": "Fin Transaction rawBankDescription configuration (1)",
+      "totalAmount": 1250,
+      "nativeAmount": 1250,
+      "fxRateSnapshot": 85,
+      "categoryId": "00000000-0178-0001-0000-000000000001",
+      "splitLines": "Fin Transaction splitLines configuration (1)",
+      "amount": [
+        "item-1-a",
+        "item-1-b"
+      ],
+      "clearStatus": "Fin Transaction clearStatus configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0008-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Transaction ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "accountId": "00000000-0178-0001-0000-000000000002",
+      "transferCounterpartyAccountId": "00000000-0178-0001-0000-000000000002",
+      "txnDate": "2026-11-02T10:00:00Z",
+      "payeeName": "Fin Transaction #2 — Enterprise Operations Record",
+      "rawBankDescription": "Fin Transaction rawBankDescription configuration (2)",
+      "totalAmount": 2500,
+      "nativeAmount": 2500,
+      "fxRateSnapshot": 90,
+      "categoryId": "00000000-0178-0001-0000-000000000002",
+      "splitLines": "Fin Transaction splitLines configuration (2)",
+      "amount": [
+        "item-2-a",
+        "item-2-b"
+      ],
+      "clearStatus": "Fin Transaction clearStatus configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0008-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Transaction ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "accountId": "00000000-0178-0001-0000-000000000003",
+      "transferCounterpartyAccountId": "00000000-0178-0001-0000-000000000003",
+      "txnDate": "2026-11-03T10:00:00Z",
+      "payeeName": "Fin Transaction #3 — Enterprise Compliance Record",
+      "rawBankDescription": "Fin Transaction rawBankDescription configuration (3)",
+      "totalAmount": 3750,
+      "nativeAmount": 3750,
+      "fxRateSnapshot": 95,
+      "categoryId": "00000000-0178-0001-0000-000000000003",
+      "splitLines": "Fin Transaction splitLines configuration (3)",
+      "amount": [
+        "item-3-a",
+        "item-3-b"
+      ],
+      "clearStatus": "Fin Transaction clearStatus configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinPayeeRule": [
+    {
+      "id": "00000000-0178-0009-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Payee Rule ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "matchPattern": "Fin Payee Rule matchPattern configuration (1)",
+      "matchMode": "Fin Payee Rule matchMode configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0009-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Payee Rule ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "matchPattern": "Fin Payee Rule matchPattern configuration (2)",
+      "matchMode": "Fin Payee Rule matchMode configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0009-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Payee Rule ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "matchPattern": "Fin Payee Rule matchPattern configuration (3)",
+      "matchMode": "Fin Payee Rule matchMode configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinRecurringBill": [
+    {
+      "id": "00000000-0178-0010-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Recurring Bill ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "accountId": "00000000-0178-0001-0000-000000000001",
+      "payeeName": "Fin Recurring Bill #1 — Enterprise Primary Record",
+      "direction": "Fin Recurring Bill direction configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0010-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Recurring Bill ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "accountId": "00000000-0178-0001-0000-000000000002",
+      "payeeName": "Fin Recurring Bill #2 — Enterprise Operations Record",
+      "direction": "Fin Recurring Bill direction configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0010-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Recurring Bill ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "accountId": "00000000-0178-0001-0000-000000000003",
+      "payeeName": "Fin Recurring Bill #3 — Enterprise Compliance Record",
+      "direction": "Fin Recurring Bill direction configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinGoalAndLoanPlan": [
+    {
+      "id": "00000000-0178-0011-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Goal And Loan Plan ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "linkedAccountId": "00000000-0178-0001-0000-000000000001",
+      "linkedCategoryId": "00000000-0178-0001-0000-000000000001",
+      "planType": "Fin Goal And Loan Plan planType configuration (1)",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0011-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Goal And Loan Plan ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "linkedAccountId": "00000000-0178-0001-0000-000000000002",
+      "linkedCategoryId": "00000000-0178-0001-0000-000000000002",
+      "planType": "Fin Goal And Loan Plan planType configuration (2)",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0011-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Goal And Loan Plan ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "linkedAccountId": "00000000-0178-0001-0000-000000000003",
+      "linkedCategoryId": "00000000-0178-0001-0000-000000000003",
+      "planType": "Fin Goal And Loan Plan planType configuration (3)",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinBankConnection": [
+    {
+      "id": "00000000-0178-0012-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Bank Connection ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0012-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Bank Connection ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0012-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Bank Connection ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ],
+  "PrsFinHouseholdGrant": [
+    {
+      "id": "00000000-0178-0013-0000-000000000001",
+      "ownerUserId": "00000000-0178-0001-0000-000000000001",
+      "ownerUserRef": "Fin Household Grant ownerUserRef configuration (1)",
+      "planId": "00000000-0178-0001-0000-000000000001",
+      "status": "ACTIVE",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0013-0000-000000000002",
+      "ownerUserId": "00000000-0178-0001-0000-000000000002",
+      "ownerUserRef": "Fin Household Grant ownerUserRef configuration (2)",
+      "planId": "00000000-0178-0001-0000-000000000002",
+      "status": "IN_PROGRESS",
+      "isDeleted": false
+    },
+    {
+      "id": "00000000-0178-0013-0000-000000000003",
+      "ownerUserId": "00000000-0178-0001-0000-000000000003",
+      "ownerUserRef": "Fin Household Grant ownerUserRef configuration (3)",
+      "planId": "00000000-0178-0001-0000-000000000003",
+      "status": "COMPLETED",
+      "isDeleted": false
+    }
+  ]
+}
